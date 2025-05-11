@@ -61,6 +61,9 @@ public partial class OutlineContainer
 
         protected override void PopulateContents(IRenderer renderer)
         {
+            if (outlineWidth <= 0)
+                return;
+
             jumpFloodParametersBuffer ??= renderer.CreateUniformBuffer<JumpFloodParameters>();
 
             renderer.PushScissorState(false);
@@ -104,20 +107,24 @@ public partial class OutlineContainer
 
         protected override void DrawContents(IRenderer renderer)
         {
-            outlineParametersBuffer ??= renderer.CreateUniformBuffer<OutlineParameters>();
-
-            renderer.SetBlend(effectBlending);
-
-            outlineParametersBuffer.Data = new OutlineParameters
+            if (outlineWidth > 0)
             {
-                OutlineWidth = outlineWidth,
-                TexSize = SharedData.CurrentEffectBuffer.Size,
-            };
 
-            outlineShader.BindUniformBlock("m_OutlineParameters", outlineParametersBuffer);
-            outlineShader.Bind();
-            renderer.DrawFrameBuffer(SharedData.CurrentEffectBuffer, DrawRectangle, outlineColour);
-            outlineShader.Unbind();
+                outlineParametersBuffer ??= renderer.CreateUniformBuffer<OutlineParameters>();
+
+                renderer.SetBlend(effectBlending);
+
+                outlineParametersBuffer.Data = new OutlineParameters
+                {
+                    OutlineWidth = outlineWidth,
+                    TexSize = SharedData.CurrentEffectBuffer.Size,
+                };
+
+                outlineShader.BindUniformBlock("m_OutlineParameters", outlineParametersBuffer);
+                outlineShader.Bind();
+                renderer.DrawFrameBuffer(SharedData.CurrentEffectBuffer, DrawRectangle, outlineColour);
+                outlineShader.Unbind();
+            }
 
             base.DrawContents(renderer);
         }
