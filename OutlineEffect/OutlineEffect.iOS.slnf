@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "path": "OutlineEffect.sln",
+    "projects": [
+      "OutlineEffect.Game\\OutlineEffect.Game.csproj",
+      "OutlineEffect.Resources\\OutlineEffect.Resources.csproj",
+      "OutlineEffect.iOS\\OutlineEffect.iOS.csproj"
+    ]
+  }
+}

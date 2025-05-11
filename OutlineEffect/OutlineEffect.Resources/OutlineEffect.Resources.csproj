@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Fonts\**\*"/>
+        <EmbeddedResource Include="Samples\**\*"/>
+        <EmbeddedResource Include="Textures\**\*"/>
+        <EmbeddedResource Include="Tracks\**\*"/>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Shaders\sh_jump_flood.fs" />
+      <EmbeddedResource Include="Shaders\sh_outline.fs" />
+    </ItemGroup>
+</Project>
